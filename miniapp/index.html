@@ -9,16 +9,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #070b14;
-    --card: rgba(255,255,255,.04);
-    --card-solid: #131c30;
-    --card-soft: rgba(255,255,255,.06);
-    --accent: #6e8dff;
-    --accent-2: #a06bff;
-    --accent-3: #ff6bd5;
-    --text: #f0f3fa;
-    --muted: #9aa6bd;
-    --border: rgba(255,255,255,.09);
+    --bg: #0a0c10;
+    --card: rgba(255,255,255,.03);
+    --card-solid: #151821;
+    --card-soft: rgba(255,255,255,.05);
+    --accent: #2dd4bf;
+    --accent-soft: rgba(45,212,191,.12);
+    --accent-glow: rgba(45,212,191,.2);
+    --text: #f2f5f7;
+    --muted: #8b93a1;
+    --border: rgba(255,255,255,.07);
     --radius: 16px;
   }
 
@@ -27,8 +27,8 @@
   body {
     font-family: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
     background:
-      radial-gradient(700px 380px at 85% -10%, rgba(110,141,255,.18), transparent 60%),
-      radial-gradient(600px 350px at 0% 20%, rgba(160,107,255,.14), transparent 55%),
+      radial-gradient(500px 300px at 85% -10%, rgba(45,212,191,.09), transparent 60%),
+      radial-gradient(450px 280px at 0% 20%, rgba(45,212,191,.05), transparent 55%),
       var(--bg);
     color: var(--text);
     line-height: 1.55;
@@ -46,12 +46,12 @@
     border-bottom: 1px solid var(--border); margin-bottom: 20px;
   }
   .logo-badge {
-    width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    display: grid; place-items: center; font-size: 22px;
-    box-shadow: 0 6px 20px rgba(110,141,255,.35);
+    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+    background: var(--accent);
+    display: grid; place-items: center; font-size: 20px; color: #06211c;
+    box-shadow: 0 0 24px var(--accent-glow);
   }
-  .header h1 { font-size: 18px; font-weight: 800; }
+  .header h1 { font-size: 18px; font-weight: 700; letter-spacing: -.2px; }
   .header p { font-size: 12px; color: var(--muted); }
 
   /* ---------- Cards ---------- */
@@ -60,7 +60,7 @@
     padding: 20px; margin-bottom: 14px;
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   }
-  .card h2 { font-size: 17px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; font-weight: 700; }
+  .card h2 { font-size: 17px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; font-weight: 600; }
   .card p { color: var(--muted); font-size: 14px; }
 
   /* ---------- Menu ---------- */
@@ -72,8 +72,8 @@
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   }
   .menu-item:active { transform: scale(.98); }
-  .menu-item:hover { border-color: rgba(110,141,255,.45); }
-  .menu-item .icon { font-size: 26px; flex-shrink: 0; }
+  .menu-item:hover { border-color: rgba(45,212,191,.35); }
+  .menu-item .icon { font-size: 24px; flex-shrink: 0; }
   .menu-item .body { flex: 1; }
   .menu-item .body b { display: block; font-size: 15.5px; font-weight: 600; }
   .menu-item .body span { font-size: 13px; color: var(--muted); }
@@ -84,13 +84,13 @@
     background: var(--card); border: 1px solid var(--border); border-radius: 14px;
     padding: 18px; margin-bottom: 12px; position: relative;
   }
-  .tariff.featured { border-color: rgba(110,141,255,.55); background: linear-gradient(180deg, rgba(110,141,255,.1), rgba(255,255,255,.03)); }
+  .tariff.featured { border-color: var(--accent); background: linear-gradient(180deg, rgba(45,212,191,.07), rgba(255,255,255,.02)); }
   .tariff .tag {
-    position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, var(--accent-2), var(--accent-3));
-    color: #fff; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 3px 8px; border-radius: 999px;
+    position: absolute; top: 12px; right: 12px; background: var(--accent); color: #06211c;
+    font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 3px 8px; border-radius: 999px;
   }
-  .tariff h3 { font-size: 16px; font-weight: 700; }
-  .tariff .price { font-size: 28px; font-weight: 800; margin: 6px 0; letter-spacing: -.5px; }
+  .tariff h3 { font-size: 16px; font-weight: 600; }
+  .tariff .price { font-size: 28px; font-weight: 700; margin: 6px 0; letter-spacing: -1px; }
   .tariff .price small { font-size: 14px; color: var(--muted); font-weight: 500; }
   .tariff ul { list-style: none; margin: 8px 0 12px; }
   .tariff li { font-size: 13.5px; color: var(--muted); padding: 3px 0; }
@@ -98,20 +98,19 @@
 
   /* ---------- Buttons ---------- */
   .btn-primary {
-    width: 100%; background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    color: #fff; border: none; padding: 14px; border-radius: 12px;
+    width: 100%; background: var(--accent); color: #06211c; border: none; padding: 14px; border-radius: 10px;
     cursor: pointer; font-weight: 700; font-size: 15px; font-family: inherit;
-    box-shadow: 0 8px 24px rgba(110,141,255,.3); transition: transform .15s;
+    box-shadow: 0 8px 28px var(--accent-glow); transition: transform .15s;
   }
   .btn-primary:active { transform: scale(.98); }
   .btn-secondary {
     width: 100%; background: var(--card-soft); color: var(--text); border: 1px solid var(--border);
-    padding: 14px; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 14px; font-family: inherit;
+    padding: 14px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 14px; font-family: inherit;
     transition: background .2s; text-decoration: none; display: inline-block; text-align: center;
   }
   .btn-outline {
     display: block; text-align: center; background: transparent; color: var(--muted);
-    border: 1px solid var(--border); padding: 12px; border-radius: 12px; cursor: pointer;
+    border: 1px solid var(--border); padding: 12px; border-radius: 10px; cursor: pointer;
     font-size: 13.5px; font-weight: 600; text-decoration: none; transition: background .2s;
   }
 
@@ -132,13 +131,13 @@
   .form-group label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; font-weight: 500; }
   .form-group input, .form-group select, .form-group textarea {
     width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text);
-    padding: 13px 14px; border-radius: 12px; font-size: 14px; font-family: inherit;
+    padding: 13px 14px; border-radius: 10px; font-size: 14px; font-family: inherit;
   }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(45,212,191,.12); }
   .form-group textarea { resize: vertical; min-height: 90px; }
   .success-box {
-    display: none; background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.35);
-    color: #86efac; padding: 14px; border-radius: 12px; margin: 14px 0; font-size: 13.5px;
+    display: none; background: rgba(45,212,191,.1); border: 1px solid rgba(45,212,191,.3);
+    color: #7fe3d3; padding: 14px; border-radius: 12px; margin: 14px 0; font-size: 13.5px;
   }
 
   /* ---------- Review ---------- */
@@ -146,7 +145,7 @@
     background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 10px;
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   }
-  .review .stars { color: #ffc94d; font-size: 14px; margin-bottom: 6px; letter-spacing: 2px; }
+  .review .stars { color: var(--accent); font-size: 14px; margin-bottom: 6px; letter-spacing: 2px; }
   .review p { font-size: 13.5px; color: var(--muted); font-style: italic; margin-bottom: 8px; }
   .review .author { font-size: 13px; font-weight: 600; }
   .review .author span { color: var(--muted); font-weight: 400; }
@@ -413,14 +412,14 @@ if (window.Telegram && window.Telegram.WebApp) {
   const tg = window.Telegram.WebApp;
   tg.ready();
   tg.expand();
-  // Подстройка под тему Telegram
+  // Подстройка под тему Telegram (легкая: только фон и текст,
+  // акцентный цвет оставляем бирюзовым, чтобы сохранить фирменный стиль)
   const theme = tg.themeParams;
   if (theme) {
-    document.documentElement.style.setProperty("--bg", theme.bg_color || "#0b0f1a");
-    document.documentElement.style.setProperty("--card", theme.secondary_bg_color || "#1a2234");
-    document.documentElement.style.setProperty("--text", theme.text_color || "#e8edf6");
-    document.documentElement.style.setProperty("--muted", theme.hint_color || "#9aa7bd");
-    document.documentElement.style.setProperty("--accent", theme.button_color || "#5b8cff");
+    document.documentElement.style.setProperty("--bg", theme.bg_color || "#0a0c10");
+    if (theme.secondary_bg_color) document.documentElement.style.setProperty("--card-solid", theme.secondary_bg_color);
+    document.documentElement.style.setProperty("--text", theme.text_color || "#f2f5f7");
+    document.documentElement.style.setProperty("--muted", theme.hint_color || "#8b93a1");
   }
 }
 </script>
