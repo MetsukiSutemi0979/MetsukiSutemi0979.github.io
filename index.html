@@ -1,0 +1,515 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Metsuki Development — разработка Telegram-ботов и мини-приложений</title>
+<meta name="description" content="Metsuki Development — разработка Telegram-ботов, мини-приложений и кастомных решений. Узнайте о тарифах, оформите заказ онлайн." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Unbounded:wght@500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #070b14;
+    --bg-soft: #0d1424;
+    --card: rgba(255,255,255,.04);
+    --card-solid: #131c30;
+    --card-soft: rgba(255,255,255,.06);
+    --accent: #6e8dff;
+    --accent-2: #a06bff;
+    --accent-3: #ff6bd5;
+    --text: #f0f3fa;
+    --muted: #9aa6bd;
+    --border: rgba(255,255,255,.09);
+    --radius: 18px;
+    --shadow: 0 24px 70px rgba(0,0,0,.5);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    background:
+      radial-gradient(1000px 500px at 85% -10%, rgba(110,141,255,.16), transparent 60%),
+      radial-gradient(900px 500px at 0% 15%, rgba(160,107,255,.14), transparent 55%),
+      radial-gradient(700px 400px at 60% 120%, rgba(255,107,213,.08), transparent 60%),
+      var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Glass helpers ---------- */
+  .glass {
+    background: var(--card);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--border);
+  }
+
+  /* ---------- Header ---------- */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 22px; letter-spacing: .5px; }
+  .logo-badge {
+    width: 38px; height: 38px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: grid; place-items: center; font-size: 19px; color: white;
+    box-shadow: 0 6px 20px rgba(110,141,255,.35);
+  }
+  .nav { display: flex; gap: 28px; align-items: center; }
+  .nav a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; font-weight: 500; }
+  .nav a:hover { color: var(--text); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #fff; border: none; padding: 12px 24px; border-radius: 12px;
+    cursor: pointer; font-weight: 600; font-size: 15px; transition: transform .15s, box-shadow .2s;
+    box-shadow: 0 8px 24px rgba(110,141,255,.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(110,141,255,.42); }
+  .btn-outline {
+    background: transparent; color: var(--text); border: 1px solid var(--border);
+    padding: 12px 24px; border-radius: 12px; cursor: pointer; font-size: 15px; font-weight: 600;
+    transition: background .2s, border-color .2s;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.22); }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 96px 0 64px; text-align: center; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(110,141,255,.12); color: #b9c8ff; border: 1px solid rgba(110,141,255,.28);
+    padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; margin-bottom: 26px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 6vw, 68px); font-weight: 800; line-height: 1.08;
+    letter-spacing: -1.5px; margin-bottom: 26px;
+  }
+  .hero h1 span {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p { font-size: 18px; color: var(--muted); max-width: 660px; margin: 0 auto 38px; }
+  .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .hero-stats { display: flex; gap: 48px; justify-content: center; margin-top: 64px; flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat b { display: block; font-size: 34px; font-weight: 800; background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stat span { color: var(--muted); font-size: 14px; }
+
+  /* ---------- Sections ---------- */
+  section { padding: 76px 0; }
+  .section-title { font-size: 34px; font-weight: 800; margin-bottom: 12px; letter-spacing: -.5px; }
+  .section-sub { color: var(--muted); margin-bottom: 42px; max-width: 620px; }
+
+  /* ---------- Services / Cards ---------- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 28px; transition: transform .2s, border-color .2s, background .2s;
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  }
+  .card:hover { transform: translateY(-5px); border-color: rgba(110,141,255,.45); background: rgba(255,255,255,.06); }
+  .card-icon {
+    width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center;
+    background: linear-gradient(135deg, rgba(110,141,255,.22), rgba(160,107,255,.22));
+    font-size: 24px; margin-bottom: 16px;
+  }
+  .card h3 { font-size: 18px; margin-bottom: 10px; font-weight: 700; }
+  .card p { color: var(--muted); font-size: 14.5px; }
+
+  /* ---------- Tariffs ---------- */
+  .tariff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .tariff {
+    background: var(--card); border: 1px solid var(--border); border-radius: 22px;
+    padding: 32px; display: flex; flex-direction: column; position: relative; overflow: hidden;
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    transition: transform .2s, border-color .2s;
+  }
+  .tariff:hover { transform: translateY(-5px); }
+  .tariff.featured { border-color: rgba(110,141,255,.55); background: linear-gradient(180deg, rgba(110,141,255,.1), rgba(255,255,255,.03)); }
+  .tariff .tag {
+    position: absolute; top: 16px; right: 16px; background: linear-gradient(135deg, var(--accent-2), var(--accent-3));
+    color: #fff; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+    padding: 4px 12px; border-radius: 999px;
+  }
+  .tariff h3 { font-size: 20px; margin-bottom: 6px; font-weight: 700; }
+  .tariff .price { font-size: 40px; font-weight: 800; margin: 16px 0 4px; letter-spacing: -1px; }
+  .tariff .price small { font-size: 16px; color: var(--muted); font-weight: 500; }
+  .tariff .period { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+  .tariff ul { list-style: none; margin-bottom: 24px; flex: 1; }
+  .tariff li { padding: 6px 0; color: var(--muted); font-size: 14.5px; display: flex; gap: 10px; }
+  .tariff li::before { content: "✓"; color: var(--accent); font-weight: 800; }
+
+  /* ---------- Portfolio ---------- */
+  .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .portfolio-item {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 28px; transition: transform .2s, border-color .2s;
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  }
+  .portfolio-item:hover { transform: translateY(-4px); border-color: rgba(160,107,255,.4); }
+  .portfolio-item h3 { margin-bottom: 8px; font-weight: 700; }
+  .portfolio-item p { color: var(--muted); font-size: 14.5px; margin-bottom: 12px; }
+  .portfolio-item .stack {
+    font-size: 12px; color: #b9c8ff; font-family: "JetBrains Mono", "Consolas", monospace;
+    background: rgba(110,141,255,.1); padding: 4px 10px; border-radius: 6px; display: inline-block;
+  }
+
+  /* ---------- Reviews ---------- */
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .review {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  }
+  .review .stars { color: #ffc94d; margin-bottom: 12px; letter-spacing: 3px; }
+  .review p { color: var(--muted); font-style: italic; font-size: 14.5px; margin-bottom: 14px; }
+  .review .author { font-weight: 600; font-size: 14px; }
+  .review .author span { color: var(--muted); font-weight: 400; font-size: 13px; }
+
+  /* ---------- Form ---------- */
+  .form-card {
+    background: var(--card-solid); border: 1px solid var(--border); border-radius: 26px;
+    padding: 42px; max-width: 640px; margin: 0 auto;
+    box-shadow: var(--shadow);
+  }
+  .form-card h2 { font-size: 24px; margin-bottom: 8px; }
+  .form-card > p { color: var(--muted); margin-bottom: 28px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 13.5px; color: var(--muted); margin-bottom: 8px; font-weight: 500; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; background: var(--bg-soft); border: 1px solid var(--border); color: var(--text);
+    padding: 14px 16px; border-radius: 12px; font-size: 15px; font-family: inherit; transition: border-color .2s, box-shadow .2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(110,141,255,.15);
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-success {
+    display: none; background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.35);
+    color: #86efac; padding: 16px; border-radius: 12px; margin-top: 16px; font-size: 14.5px;
+  }
+  .form-error {
+    display: none; background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.35);
+    color: #fca5a5; padding: 16px; border-radius: 12px; margin-top: 16px; font-size: 14.5px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer { border-top: 1px solid var(--border); padding: 42px 0; text-align: center; color: var(--muted); font-size: 14px; }
+  footer a { color: #b9c8ff; text-decoration: none; }
+
+  /* ---------- Toast ---------- */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: var(--card-solid); border: 1px solid var(--border); color: var(--text);
+    padding: 14px 22px; border-radius: 12px; box-shadow: var(--shadow); opacity: 0;
+    transition: all .3s; z-index: 100; font-size: 14.5px; pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 720px) {
+    .nav { display: none; }
+    .hero { padding-top: 60px; }
+    .hero-stats { gap: 28px; }
+    .form-card { padding: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="container header">
+  <div class="logo"><span class="logo-badge">⚡</span> Metsuki Development</div>
+  <nav class="nav">
+    <a href="#services">Услуги</a>
+    <a href="#tariffs">Тарифы</a>
+    <a href="#portfolio">Портфолио</a>
+    <a href="#reviews">Отзывы</a>
+    <a href="#contact">Заказ</a>
+  </nav>
+  <a href="#contact" class="btn-primary">Оформить заказ</a>
+</header>
+
+<section class="hero container">
+  <div class="hero-badge">🚀 Разработка Telegram-ботов и мини-приложений</div>
+  <h1>Автоматизируйте бизнес с помощью <span>Telegram-ботов</span></h1>
+  <p>Создаём ботов, мини-приложения и кастомные интеграции, которые работают на вас 24/7. От простого приёмника заявок до полноценной платформы в Telegram.</p>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">🛒 Оформить заказ</a>
+    <a href="#tariffs" class="btn-outline">Смотреть тарифы</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><b>15+</b><span>проектов</span></div>
+    <div class="stat"><b>24/7</b><span>работа ботов</span></div>
+    <div class="stat"><b>100%</b><span>под ключ</span></div>
+  </div>
+</section>
+
+<section id="services" class="container">
+  <h2 class="section-title">Услуги</h2>
+  <p class="section-sub">Полный цикл: от идеи до запуска и поддержки.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <h3>Бот-заявка (мини-бот)</h3>
+      <p>Меню, кнопки, форма заявки. Идеален для приёма заявок с сайта или рекламы. Срок: 1–3 дня.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📅</div>
+      <h3>Бот-запись + напоминания</h3>
+      <p>Запись по слотам, категории специалистов, напоминания клиентам перед визитом. Срок: 3–7 дней.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛍️</div>
+      <h3>Бот-каталог / магазин</h3>
+      <p>Каталог товаров или услуг с приёмом заказов прямо в Telegram. Срок: 3–7 дней.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌐</div>
+      <h3>Лендинг (Tilda/HTML)</h3>
+      <p>Одностраничный сайт под вашу задачу: продающая страница, форма заявки, аналитика.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🚀</div>
+      <h3>Пакет «бот + лендинг»</h3>
+      <p>Комплексное решение: продающий лендинг + бот для приёма заявок и обработки клиентов.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛠️</div>
+      <h3>Поддержка и обновления</h3>
+      <p>Ежемесячная поддержка готовых решений: исправления, апдейты, мелкие доработки.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tariffs" class="container">
+  <h2 class="section-title">Тарифы</h2>
+  <p class="section-sub">Прозрачные цены. Точную стоимость посчитаем после обсуждения вашей задачи.</p>
+  <div class="tariff-grid" id="tariffs-grid"></div>
+</section>
+
+<section id="portfolio" class="container">
+  <h2 class="section-title">Портфолио</h2>
+  <p class="section-sub">Несколько работ из нашей практики.</p>
+  <div class="portfolio-grid" id="portfolio-grid"></div>
+</section>
+
+<section id="reviews" class="container">
+  <h2 class="section-title">Отзывы</h2>
+  <p class="section-sub">Что говорят клиенты о работе с нами.</p>
+  <div class="reviews-grid" id="reviews-grid"></div>
+</section>
+
+<section id="contact" class="container">
+  <h2 class="section-title" style="text-align:center">Оформить заказ</h2>
+  <p class="section-sub" style="text-align:center; margin-left:auto; margin-right:auto">Заполните форму — мы свяжемся с вами в течение рабочего дня.</p>
+  <div class="form-card">
+    <form id="order-form" novalidate>
+      <div class="form-group">
+        <label for="name">Ваше имя *</label>
+        <input type="text" id="name" name="name" placeholder="Как к вам обращаться" required />
+      </div>
+      <div class="form-group">
+        <label for="contact">Контакты для связи *</label>
+        <input type="text" id="contact" name="contact" placeholder="@username или +7 900 000-00-00" required />
+      </div>
+      <div class="form-group">
+        <label for="tariff">Тариф *</label>
+        <select id="tariff" name="tariff" required>
+          <option value="mini_bot">Бот-заявка (мини-бот) — 5 000 ₽</option>
+          <option value="booking_bot">Бот-запись + напоминания — 8 000 ₽</option>
+          <option value="catalog_bot">Бот-каталог / магазин — 10 000 ₽</option>
+          <option value="landing">Лендинг (Tilda/HTML) — 6 000 ₽</option>
+          <option value="bot_landing">Пакет «бот + лендинг» — 12 000 ₽</option>
+          <option value="support">Поддержка и обновления — 2 000 ₽/мес</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="task">Опишите задачу (ТЗ) *</label>
+        <textarea id="task" name="task" placeholder="Что должен делать бот? Какие функции обязательны?" required></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="width:100%">Отправить заказ</button>
+      <div class="form-success" id="form-success">✅ Спасибо! Ваш заказ отправлен. Мы свяжемся с вами в ближайшее время.</div>
+      <div class="form-error" id="form-error">⚠️ Произошла ошибка. Попробуйте ещё раз или напишите нам напрямую.</div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    ⚡ Metsuki Development — разработка Telegram-ботов и мини-приложений<br />
+    <a href="https://t.me/metsuki_sutemi0979">@metsuki_sutemi0979</a> · <a href="mailto:artemiymazur@yandex.ru">artemiymazur@yandex.ru</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ====== Данные (синхронизированы с ботом) ======
+const TARIFFS = [
+  {
+    id: "mini_bot",
+    title: "Бот-заявка (мини-бот)",
+    price: 5000,
+    period: "1–3 дня",
+    detail: "Меню, кнопки, форма заявки. Идеален для приёма заявок с сайта или рекламы.",
+    includes: ["Меню и кнопки", "Форма заявки", "Уведомления о заявках"]
+  },
+  {
+    id: "booking_bot",
+    title: "Бот-запись + напоминания",
+    price: 8000,
+    period: "3–7 дней",
+    detail: "Запись по слотам, категории специалистов, напоминания клиентам перед визитом.",
+    includes: ["Запись по слотам", "Категории и специалисты", "Напоминания клиентам"]
+  },
+  {
+    id: "catalog_bot",
+    title: "Бот-каталог / магазин",
+    price: 10000,
+    period: "3–7 дней",
+    detail: "Каталог товаров/услуг с приёмом заказов прямо в Telegram.",
+    includes: ["Каталог товаров/услуг", "Корзина и оформление", "Уведомления менеджеру"]
+  },
+  {
+    id: "landing",
+    title: "Лендинг (Tilda/HTML)",
+    price: 6000,
+    period: "3–7 дней",
+    detail: "Одностраничный сайт: продающая страница, форма заявки, аналитика.",
+    includes: ["Продающая структура", "Форма заявки", "Адаптив (телефон/ПК)"]
+  },
+  {
+    id: "bot_landing",
+    title: "Пакет «бот + лендинг»",
+    price: 12000,
+    period: "7–10 дней",
+    detail: "Продающий лендинг + бот для приёма заявок и обработки клиентов.",
+    includes: ["Лендинг (одна страница)", "Бот для заявок", "Связка лендинг → бот"]
+  },
+  {
+    id: "support",
+    title: "Поддержка и обновления",
+    price: 2000,
+    period: "ежемесячно",
+    detail: "Ежемесячная поддержка: исправления, апдейты, мелкие доработки.",
+    includes: ["Исправление ошибок", "Обновления под API", "Мелкие доработки"]
+  }
+];
+
+const PORTFOLIO = [
+  { title: "Бот для сети кофеен", description: "Каталог, корзина, онлайн-оплата прямо в Telegram.", stack: "Python / aiogram / Stripe" },
+  { title: "Бот-помощник магазина", description: "Ответы на вопросы, статус заказа по трек-номеру, сбор отзывов.", stack: "Python / Telegram API" },
+  { title: "Бот с мини-приложением для записи", description: "Календарь записи к специалистам, напоминания, уведомления.", stack: "Python / aiogram / WebApp" }
+];
+
+const REVIEWS = [
+  { text: "Сделали бота для нашего интернет-магазина. Клиенты стали быстрее получать ответы, продажи выросли. Рекомендую!", author: "Алексей", role: "владелец магазина" },
+  { text: "Качественно, в срок, с пониманием задачи. Мини-приложение работает отлично, всё интуитивно.", author: "Мария", role: "маркетолог" },
+  { text: "Обратился за кастомным ботом с интеграцией CRM. Сделали даже больше, чем договаривались. Спасибо!", author: "Игорь", role: "руководитель отдела" }
+];
+
+// ====== Рендер ======
+document.getElementById("tariffs-grid").innerHTML = TARIFFS.map((t, i) => `
+  <div class="tariff ${i === 1 ? "featured" : ""}">
+    ${i === 1 ? '<span class="tag">Популярный</span>' : ""}
+    <h3>${t.title}</h3>
+    <div class="price">${t.price.toLocaleString("ru-RU")} <small>₽</small></div>
+    <div class="period">${t.period}</div>
+    <ul>${t.includes.map(x => `<li>${x}</li>`).join("")}</ul>
+    <button class="btn-primary" onclick="selectTariff('${t.id}')">Выбрать</button>
+  </div>
+`).join("");
+
+document.getElementById("portfolio-grid").innerHTML = PORTFOLIO.map(p => `
+  <div class="portfolio-item">
+    <h3>${p.title}</h3>
+    <p>${p.description}</p>
+    <span class="stack">${p.stack}</span>
+  </div>
+`).join("");
+
+document.getElementById("reviews-grid").innerHTML = REVIEWS.map(r => `
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <p>«${r.text}»</p>
+    <div class="author">${r.author} <span>· ${r.role}</span></div>
+  </div>
+`).join("");
+
+// ====== Форма: выбор тарифа ======
+function selectTariff(id) {
+  const sel = document.getElementById("tariff");
+  sel.value = id;
+  document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+}
+
+// ====== Отправка заказа ======
+// Заказы с сайта уходят на адрес API_URL. Если сервер не задеплоен (API_URL пуст),
+// форма отправляет письмо через почтовый клиент (mailto) на artemiymazur@yandex.ru.
+// После деплоя бэкенда укажите: const API_URL = "https://ваш-домен/api/order";
+const API_URL = "";
+
+document.getElementById("order-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const success = document.getElementById("form-success");
+  const error = document.getElementById("form-error");
+  success.style.display = "none";
+  error.style.display = "none";
+
+  const data = {
+    name: document.getElementById("name").value,
+    contact: document.getElementById("contact").value,
+    tariff: document.getElementById("tariff").value,
+    task: document.getElementById("task").value
+  };
+
+  async function sendMail() {
+    const tariff = TARIFFS.find(t => t.id === data.tariff);
+    const subject = encodeURIComponent("Заказ с сайта Metsuki Development: " + (tariff ? tariff.title : ""));
+    const body = encodeURIComponent(
+      "Имя: " + data.name + "\n" +
+      "Контакты: " + data.contact + "\n" +
+      "Тариф: " + (tariff ? tariff.title + " (" + tariff.price.toLocaleString("ru-RU") + " ₽)" : data.tariff) + "\n\n" +
+      "Задача:\n" + data.task
+    );
+    window.location.href = "mailto:artemiymazur@yandex.ru?subject=" + subject + "&body=" + body;
+  }
+
+  try {
+    if (!API_URL) { await sendMail(); success.style.display = "block"; e.target.reset(); return; }
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    if (res.ok) {
+      success.style.display = "block";
+      e.target.reset();
+      showToast("✅ Заказ отправлен!");
+    } else {
+      error.style.display = "block";
+    }
+  } catch (err) {
+    await sendMail();
+    success.style.display = "block";
+    e.target.reset();
+  }
+});
+
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 3000);
+}
+</script>
+</body>
+</html>
