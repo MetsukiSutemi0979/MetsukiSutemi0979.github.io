@@ -433,12 +433,49 @@ document.getElementById("order-form").addEventListener("submit", function (e) {
   var contact = document.getElementById("f-contact").value.trim();
   var task = document.getElementById("f-task").value.trim();
   if (!name || !contact || !task) { alert("Заполните обязательные поля"); return; }
-  var tariff = document.getElementById("f-tariff").value || "mini_bot";
-  openBotWithPayload(tariff);
+  var tariffSel = document.getElementById("f-tariff");
+  var tariff = tariffSel.value || "mini_bot";
+  var tariffLabel = tariffSel.options[tariffSel.selectedIndex].textContent;
+
+  // Собираем текст заявки и копируем в буфер, затем открываем чат с ботом.
+  // Это надёжнее deep-link: payload через WebApp-ссылку может не дойти до бота,
+  // а вставленный текст позволяет боту принять заявку целиком.
+  var text = [
+    "Заказ с мини-приложения Metsuki Development",
+    "Имя: " + name,
+    "Контакт: " + contact,
+    "Тариф: " + tariffLabel,
+    "Задача: " + task
+  ].join("\n");
+
+  var copyDone = false;
+  function doCopy() {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(
+        function () { copyDone = true; },
+        function () { copyDone = false; }
+      );
+    } else {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { copyDone = document.execCommand("copy"); } catch (err) { copyDone = false; }
+      document.body.removeChild(ta);
+    }
+  }
+  doCopy();
+
   var box = document.getElementById("success-box");
+  box.textContent = copyDone
+    ? "Заявка скопирована. Откройте бота и вставьте текст в чат."
+    : "Откройте бота — текст заявки ниже, вставьте его в чат.";
+
   box.classList.add("show");
+  openBotWithPayload(tariff);
+  var leave = function () {};
+  window.setTimeout(function () { box.classList.remove("show"); }, 8000);
   e.target.reset();
-  setTimeout(function () { box.classList.remove("show"); }, 6000);
 });
 
 if (window.Telegram && window.Telegram.WebApp) {
