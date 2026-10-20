@@ -2282,7 +2282,7 @@ orderForm.addEventListener("submit", function (event) {
   document.getElementById("form-success").style.display = "block";
   document.getElementById("form-error").style.display = "none";
   showToast("Заявка скопирована — вставьте её в чат с ботом");
-  window.open("https://t.me/MetsukiDevelopmentBot?start=" + encodeURIComponent(tariffSelect.value), "_blank", "noopener");
+  openBotWithPayload(tariffSelect.value);
 });
 
 document.getElementById("calc-cta").addEventListener("click", function () {
@@ -2315,6 +2315,21 @@ function selectTariff(id) {
     document.getElementById("name").focus({ preventScroll: true });
   }, 260);
   showToast("Тариф выбран — заполните имя и контакт");
+}
+
+function openBotWithPayload(payload) {
+  // Надёжное открытие бота с параметром: сначала tg://resolve (открывает в
+  // Telegram-клиенте, не зависит от t.me в браузере), fallback — https://t.me.
+  const encoded = encodeURIComponent(payload);
+  const tgUrl = "tg://resolve?domain=MetsukiDevelopmentBot&start=" + encoded;
+  let opened = false;
+  try {
+    window.location.href = tgUrl;
+    opened = true;
+  } catch (e) { /* ignore */ }
+  window.setTimeout(function () {
+    if (opened) window.open("https://t.me/MetsukiDevelopmentBot?start=" + encoded, "_blank", "noopener");
+  }, 600);
 }
 
 function showToast(msg) {
