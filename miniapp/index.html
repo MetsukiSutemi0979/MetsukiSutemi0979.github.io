@@ -2,156 +2,169 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>Metsuki Development — Мини-приложение</title>
+<meta name="theme-color" content="#0B0B0C" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #0a0c10;
-    --card: rgba(255,255,255,.03);
-    --card-solid: #151821;
-    --card-soft: rgba(255,255,255,.05);
-    --accent: #2dd4bf;
-    --accent-soft: rgba(45,212,191,.12);
-    --accent-glow: rgba(45,212,191,.2);
-    --text: #f2f5f7;
-    --muted: #8b93a1;
-    --border: rgba(255,255,255,.07);
-    --radius: 16px;
+    --ink: #0B0B0C;
+    --ink-2: #0F0F11;
+    --surface: #141416;
+    --surface-2: #1A1A1D;
+    --line: #232326;
+    --line-soft: rgba(255, 255, 255, .07);
+    --text: #EDECE8;
+    --text-2: #C4C2BB;
+    --muted: #9A978F;
+    --sand: #E3CFA4;
+    --sand-bright: #F0E2C2;
+    --sand-ink: #14130F;
+    --sand-soft: rgba(227, 207, 164, .1);
+    --sand-line: rgba(227, 207, 164, .28);
+    --font-sans: "Onest", "Golos Text", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "Consolas", monospace;
+    --r-sm: 10px;
+    --r-md: 16px;
+    --r-lg: 22px;
+    --ease: cubic-bezier(.16, 1, .3, 1);
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  *, *::before, *::after { box-sizing: border-box; }
 
   body {
-    font-family: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
-    background:
-      radial-gradient(500px 300px at 85% -10%, rgba(45,212,191,.09), transparent 60%),
-      radial-gradient(450px 280px at 0% 20%, rgba(45,212,191,.05), transparent 55%),
-      var(--bg);
+    margin: 0;
+    background: var(--ink);
     color: var(--text);
-    line-height: 1.55;
-    min-height: 100vh;
-    padding-bottom: 16px;
+    font: 400 15px/1.55 var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding-bottom: 20px;
   }
+
+  ::selection { background: var(--sand); color: var(--sand-ink); }
 
   .container { max-width: 480px; margin: 0 auto; padding: 0 16px; }
 
   /* ---------- Header ---------- */
   .header {
-    display: flex; align-items: center; gap: 12px; padding: 16px 0;
-    border-bottom: 1px solid var(--border); margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+    padding: 18px 0 14px; border-bottom: 1px solid var(--line-soft); margin-bottom: 18px;
   }
-  .logo-badge {
-    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
-    background: var(--accent);
-    display: grid; place-items: center; font-size: 20px; color: #06211c;
-    box-shadow: 0 0 24px var(--accent-glow);
+  .brand-mark {
+    width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
+    border: 1px solid var(--sand-line);
+    display: grid; place-items: center;
   }
-  .header h1 { font-size: 18px; font-weight: 700; letter-spacing: -.2px; }
-  .header p { font-size: 12px; color: var(--muted); }
+  .brand-mark svg { width: 24px; height: 24px; }
+  .header h1 { font-size: 16px; font-weight: 600; letter-spacing: -.02em; margin: 0; }
+  .header p { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 2px 0 0; }
 
-  /* ---------- Cards ---------- */
-  .card {
-    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 20px; margin-bottom: 14px;
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    width: 100%; font-family: var(--font-sans); cursor: pointer; text-decoration: none;
+    font-weight: 600; font-size: 15px; letter-spacing: -.01em;
+    padding: 14px 18px; border-radius: 999px; border: 1px solid transparent;
+    transition: transform .5s cubic-bezier(.16,1,.3,1), background-color .35s, color .35s, border-color .35s;
+    color: var(--text); -webkit-tap-highlight-color: transparent;
   }
-  .card h2 { font-size: 17px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; font-weight: 600; }
-  .card p { color: var(--muted); font-size: 14px; }
+  .btn:active { transform: scale(.98); }
+  .btn-primary { background: var(--sand); color: var(--sand-ink); box-shadow: 0 12px 34px -18px rgba(227,207,164,.7); }
+  .btn-primary:active { background: var(--sand-bright); }
+  .btn-ghost { background: rgba(255,255,255,.02); border-color: var(--line); color: var(--text); }
+  .btn-ghost:active { border-color: var(--sand-line); color: var(--sand); }
+  .btn-back {
+    justify-content: flex-start; background: rgba(255,255,255,.02); border-color: var(--line);
+    color: var(--text-2); font-size: 14px; padding: 12px 16px; margin-bottom: 14px;
+  }
+  .btn-back::before { content: "←"; color: var(--sand); margin-right: 2px; }
 
   /* ---------- Menu ---------- */
   .menu-item {
     display: flex; align-items: center; gap: 14px;
-    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-    padding: 16px 18px; margin-bottom: 10px; cursor: pointer;
-    transition: transform .15s, border-color .2s; text-decoration: none; color: var(--text);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--r-md);
+    padding: 16px 16px; margin-bottom: 10px; cursor: pointer;
+    transition: border-color .3s, transform .2s; text-decoration: none; color: var(--text);
+    -webkit-tap-highlight-color: transparent;
   }
-  .menu-item:active { transform: scale(.98); }
-  .menu-item:hover { border-color: rgba(45,212,191,.35); }
-  .menu-item .icon { font-size: 24px; flex-shrink: 0; }
+  .menu-item:active { transform: scale(.98); border-color: var(--sand-line); }
+  .menu-item .icon {
+    width: 38px; height: 38px; flex-shrink: 0; border-radius: 11px;
+    background: var(--sand-soft); color: var(--sand);
+    display: grid; place-items: center; font-size: 14px; font-weight: 600;
+    border: 1px solid rgba(227,207,164,.12);
+  }
   .menu-item .body { flex: 1; }
-  .menu-item .body b { display: block; font-size: 15.5px; font-weight: 600; }
-  .menu-item .body span { font-size: 13px; color: var(--muted); }
+  .menu-item .body b { display: block; font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+  .menu-item .body span { font-size: 12px; color: var(--muted); }
   .menu-item .arrow { color: var(--muted); font-size: 18px; }
 
-  /* ---------- Tariffs ---------- */
-  .tariff {
-    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-    padding: 18px; margin-bottom: 12px; position: relative;
+  /* ---------- Card ---------- */
+  .card {
+    background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--r-md);
+    padding: 20px; margin-bottom: 14px;
   }
-  .tariff.featured { border-color: var(--accent); background: linear-gradient(180deg, rgba(45,212,191,.07), rgba(255,255,255,.02)); }
-  .tariff .tag {
-    position: absolute; top: 12px; right: 12px; background: var(--accent); color: #06211c;
-    font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 3px 8px; border-radius: 999px;
-  }
-  .tariff h3 { font-size: 16px; font-weight: 600; }
-  .tariff .price { font-size: 28px; font-weight: 700; margin: 6px 0; letter-spacing: -1px; }
-  .tariff .price small { font-size: 14px; color: var(--muted); font-weight: 500; }
-  .tariff ul { list-style: none; margin: 8px 0 12px; }
-  .tariff li { font-size: 13.5px; color: var(--muted); padding: 3px 0; }
-  .tariff li::before { content: "✓ "; color: var(--accent); font-weight: 700; }
+  .card h2 { font-size: 15px; font-weight: 600; margin: 0 0 6px; letter-spacing: -.01em; }
+  .card .mono { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .card p { color: var(--text-2); font-size: 13.5px; margin: 0; }
+  .card .lead { color: var(--text); font-weight: 600; font-size: 15px; }
+  .card a { color: var(--sand); text-decoration: none; }
 
-  /* ---------- Buttons ---------- */
-  .btn-primary {
-    width: 100%; background: var(--accent); color: #06211c; border: none; padding: 14px; border-radius: 10px;
-    cursor: pointer; font-weight: 700; font-size: 15px; font-family: inherit;
-    box-shadow: 0 8px 28px var(--accent-glow); transition: transform .15s;
+  /* ---------- List items ---------- */
+  .list-item {
+    background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--r-md);
+    padding: 18px; margin-bottom: 10px;
   }
-  .btn-primary:active { transform: scale(.98); }
-  .btn-secondary {
-    width: 100%; background: var(--card-soft); color: var(--text); border: 1px solid var(--border);
-    padding: 14px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 14px; font-family: inherit;
-    transition: background .2s; text-decoration: none; display: inline-block; text-align: center;
+  .list-item .mono { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--sand); margin-bottom: 8px; }
+  .list-item h3 { font-size: 15px; font-weight: 600; margin: 0 0 5px; letter-spacing: -.01em; }
+  .list-item p { font-size: 13px; color: var(--muted); margin: 0; }
+  .list-item .price { font-size: 24px; font-weight: 600; letter-spacing: -.02em; margin: 8px 0 2px; }
+  .list-item .price small { font-size: 13px; color: var(--muted); font-weight: 400; }
+  .list-item .period { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); margin-bottom: 10px; }
+  .list-item ul { list-style: none; margin: 0 0 14px; padding: 0; }
+  .list-item li { font-size: 13px; color: var(--text-2); padding: 3px 0; }
+  .list-item li::before { content: "— "; color: var(--sand); }
+  .list-item .tag {
+    display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--sand); background: var(--sand-soft); border: 1px solid rgba(227,207,164,.2);
+    padding: 4px 9px; border-radius: 999px; margin-bottom: 8px;
   }
-  .btn-outline {
-    display: block; text-align: center; background: transparent; color: var(--muted);
-    border: 1px solid var(--border); padding: 12px; border-radius: 10px; cursor: pointer;
-    font-size: 13.5px; font-weight: 600; text-decoration: none; transition: background .2s;
-  }
-
-  /* ---------- Accordion ---------- */
-  .accordion { margin-bottom: 10px; }
-  .accordion-btn {
-    width: 100%; display: flex; justify-content: space-between; align-items: center;
-    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-    padding: 16px 18px; cursor: pointer; color: var(--text); font-size: 15px; font-weight: 600; font-family: inherit;
-  }
-  .accordion-body { display: none; padding: 16px 18px; background: var(--card-solid); border-radius: 0 0 14px 14px; margin-top: -4px; }
-  .accordion.open .accordion-body { display: block; }
-  .accordion.open .accordion-btn .arrow { transform: rotate(180deg); }
-  .arrow { transition: transform .2s; color: var(--muted); }
 
   /* ---------- Form ---------- */
   .form-group { margin-bottom: 14px; }
-  .form-group label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; font-weight: 500; }
+  .form-group label { display: block; font-size: 13px; color: var(--text-2); margin-bottom: 7px; font-weight: 500; }
   .form-group input, .form-group select, .form-group textarea {
-    width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text);
-    padding: 13px 14px; border-radius: 10px; font-size: 14px; font-family: inherit;
+    width: 100%; background: var(--ink-2); border: 1px solid var(--line); color: var(--text);
+    padding: 13px 15px; border-radius: var(--r-sm); font-size: 15px; font-family: var(--font-sans);
+    transition: border-color .3s; -webkit-appearance: none; appearance: none;
   }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(45,212,191,.12); }
-  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--sand-line); }
+  .form-group textarea { resize: vertical; min-height: 84px; }
+  .form-fine { font-size: 12px; color: var(--muted); margin-top: 12px; text-align: center; }
   .success-box {
-    display: none; background: rgba(45,212,191,.1); border: 1px solid rgba(45,212,191,.3);
-    color: #7fe3d3; padding: 14px; border-radius: 12px; margin: 14px 0; font-size: 13.5px;
+    display: none; background: var(--sand-soft); border: 1px solid var(--sand-line);
+    color: var(--sand-bright); padding: 14px; border-radius: var(--r-sm); margin: 14px 0; font-size: 13.5px;
   }
+  .success-box.show { display: block; }
 
-  /* ---------- Review ---------- */
-  .review {
-    background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 10px;
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  }
-  .review .stars { color: var(--accent); font-size: 14px; margin-bottom: 6px; letter-spacing: 2px; }
-  .review p { font-size: 13.5px; color: var(--muted); font-style: italic; margin-bottom: 8px; }
-  .review .author { font-size: 13px; font-weight: 600; }
-  .review .author span { color: var(--muted); font-weight: 400; }
-
+  /* ---------- Misc ---------- */
   .hide { display: none !important; }
-  .footer-note { text-align: center; color: var(--muted); font-size: 12px; margin-top: 16px; }
+  .footer-note { text-align: center; color: var(--muted); font-size: 11px; margin-top: 18px; font-family: var(--font-mono); }
+  .footer-note a { color: var(--text-2); text-decoration: none; }
+  .stack-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .stack-pill {
+    font-family: var(--font-mono); font-size: 11.5px; color: var(--text-2);
+    border: 1px solid var(--line); border-radius: 999px; padding: 7px 13px;
+  }
+
+  /* ---------- Motion ---------- */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .screen { animation: fadeUp .4s cubic-bezier(.16,1,.3,1); }
 </style>
 </head>
 <body>
@@ -159,267 +172,275 @@
 <div class="container">
 
   <div class="header">
-    <div class="logo-badge">⚡</div>
+    <div class="brand-mark">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="30" height="30" rx="9" stroke="rgba(227,207,164,.35)" />
+        <path d="M8 23V10l8 7 8-7v13" stroke="#E3CFA4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
     <div>
       <h1>Metsuki Development</h1>
-      <p>Разработка Telegram-ботов</p>
+      <p>Боты · мини-ап · лендинги</p>
     </div>
   </div>
 
   <!-- Главный экран -->
-  <div id="screen-main">
-    <div class="card" style="text-align:center">
-      <h2 style="justify-content:center">👋 Привет!</h2>
-      <p>Выберите раздел, чтобы продолжить</p>
-    </div>
+  <div id="screen-main" class="screen">
     <div class="menu-item" data-nav="about">
-      <div class="icon">ℹ️</div>
+      <div class="icon">i</div>
       <div class="body"><b>Обо мне</b><span>Кто такой Metsuki Development</span></div>
       <div class="arrow">›</div>
     </div>
-    <div class="menu-item" data-nav="portfolio">
-      <div class="icon">💼</div>
-      <div class="body"><b>Портфолио</b><span>Наши работы</span></div>
-      <div class="arrow">›</div>
-    </div>
-    <div class="menu-item" data-nav="services">
-      <div class="icon">🛠</div>
-      <div class="body"><b>Услуги</b><span>Что мы делаем</span></div>
-      <div class="arrow">›</div>
-    </div>
     <div class="menu-item" data-nav="tariffs">
-      <div class="icon">💲</div>
-      <div class="body"><b>Тарифы и цены</b><span>3 варианта на выбор</span></div>
+      <div class="icon">₽</div>
+      <div class="body"><b>Тарифы и цены</b><span>9 тарифов под задачу</span></div>
       <div class="arrow">›</div>
     </div>
-    <div class="menu-item" data-nav="reviews">
-      <div class="icon">⭐</div>
-      <div class="body"><b>Отзывы</b><span>Что говорят клиенты</span></div>
+    <div class="menu-item" data-nav="calc">
+      <div class="icon">≈</div>
+      <div class="body"><b>Расчёт окупаемости</b><span>Сколько принесёт бот</span></div>
       <div class="arrow">›</div>
     </div>
-    <div class="menu-item" data-nav="order">
-      <div class="icon">🛒</div>
-      <div class="body"><b>Оформить заказ</b><span>Быстрый заказ прямо здесь</span></div>
+    <div class="menu-item" data-nav="how">
+      <div class="icon">→</div>
+      <div class="body"><b>Как проходит запуск</b><span>От заявки до релиза</span></div>
       <div class="arrow">›</div>
     </div>
-    <a class="btn-outline" href="https://t.me/MetsukiDevelopmentBot" style="margin-top:8px">💬 Открыть бота в Telegram</a>
+    <div class="menu-item" data-nav="portfolio">
+      <div class="icon">01</div>
+      <div class="body"><b>Опыт</b><span>Обучение и стажировка</span></div>
+      <div class="arrow">›</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">
+      <button class="btn btn-primary" onclick="showScreen('order')">Оформить заказ <span aria-hidden="true">↗</span></button>
+      <a class="btn btn-ghost" href="https://t.me/MetsukiDevelopmentBot">Открыть бота</a>
+    </div>
   </div>
 
   <!-- Обо мне -->
-  <div id="screen-about" class="hide">
-    <button class="btn-secondary" onclick="showScreen('main')" style="margin-bottom:14px">← Назад</button>
+  <div id="screen-about" class="screen hide">
+    <button class="btn btn-back" onclick="showScreen('main')">Назад</button>
     <div class="card">
-      <h2>ℹ️ Обо мне</h2>
-      <p style="margin-top:8px"><b style="color:var(--text);font-size:16px">Артемий</b></p>
-      <p><i>Разработчик Telegram-ботов</i></p>
-      <p style="margin-top:10px">Помогаю бизнесу автоматизировать процессы и продажи через Telegram-ботов. От простых приёмников заявок до полноценных ботов с мини-приложениями. Беру на себя весь цикл: анализ, разработку, тестирование и запуск.</p>
-      <p style="margin-top:10px">📌 Telegram: <a href="https://t.me/metsuki_sutemi0979" style="color:#9db8ff;text-decoration:none">@metsuki_sutemi0979</a><br />
-      ✉️ Email: <a href="mailto:artemiymazur@yandex.ru" style="color:#9db8ff;text-decoration:none">artemiymazur@yandex.ru</a></p>
+      <div class="mono">Обо мне</div>
+      <p class="lead">Артемий</p>
+      <p style="margin-top:8px">Разработчик Telegram-ботов и веб-приложений на Python и Java с 2024 года. Курс «Инженер по тестированию» в Нетологии, стажировка в Альфа-Банке.</p>
+      <p style="margin-top:10px">Беру весь цикл: анализ, разработку, тестирование и запуск.</p>
+      <p style="margin-top:12px;font-size:13px">
+        Telegram: <a href="https://t.me/metsuki_sutemi0979">@metsuki_sutemi0979</a><br />
+        Email: <a href="mailto:metsuki-development@yandex.ru">metsuki-development@yandex.ru</a>
+      </p>
+    </div>
+    <div class="card">
+      <div class="mono">Стек</div>
+      <div class="stack-row">
+        <span class="stack-pill">Python</span>
+        <span class="stack-pill">Java</span>
+        <span class="stack-pill">aiogram 3</span>
+        <span class="stack-pill">Docker</span>
+        <span class="stack-pill">PostgreSQL</span>
+        <span class="stack-pill">Git</span>
+        <span class="stack-pill">HTML/CSS/JS</span>
+      </div>
     </div>
   </div>
 
-  <!-- Портфолио -->
-  <div id="screen-portfolio" class="hide">
-    <button class="btn-secondary" onclick="showScreen('main')" style="margin-bottom:14px">← Назад</button>
-    <div class="card" style="margin-bottom:8px"><h2>💼 Портфолио</h2></div>
+  <!-- Тарифы -->
+  <div id="screen-tariffs" class="screen hide">
+    <button class="btn btn-back" onclick="showScreen('main')">Назад</button>
+    <div id="tariffs-list"></div>
+    <button class="btn btn-primary" onclick="showScreen('order')" style="margin-top:6px">Оформить заказ <span aria-hidden="true">↗</span></button>
+  </div>
+
+  <!-- Расчёт -->
+  <div id="screen-calc" class="screen hide">
+    <button class="btn btn-back" onclick="showScreen('main')">Назад</button>
+    <div class="card">
+      <div class="mono">Расчёт окупаемости</div>
+      <p>Сколько в месяц теряет бизнес без автоматизации записи.</p>
+      <div style="margin-top:14px">
+        <div class="form-group">
+          <label for="c-records">Записей в день</label>
+          <input type="number" id="c-records" value="20" min="1" max="200" inputmode="numeric" />
+        </div>
+        <div class="form-group">
+          <label for="c-check">Средний чек, ₽</label>
+          <input type="number" id="c-check" value="2000" min="100" inputmode="numeric" />
+        </div>
+        <div class="form-group">
+          <label for="c-missed">Потери от пропущенных записей, %</label>
+          <input type="number" id="c-missed" value="25" min="0" max="60" inputmode="numeric" />
+        </div>
+        <button class="btn btn-ghost" onclick="calculate()" style="margin-top:2px">Рассчитать</button>
+        <div id="calc-result" style="margin-top:16px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Как проходит запуск -->
+  <div id="screen-how" class="screen hide">
+    <button class="btn btn-back" onclick="showScreen('main')">Назад</button>
+    <div id="how-list"></div>
+  </div>
+
+  <!-- Опыт -->
+  <div id="screen-portfolio" class="screen hide">
+    <button class="btn btn-back" onclick="showScreen('main')">Назад</button>
     <div id="portfolio-list"></div>
   </div>
 
-  <!-- Услуги -->
-  <div id="screen-services" class="hide">
-    <button class="btn-secondary" onclick="showScreen('main')" style="margin-bottom:14px">← Назад</button>
-    <div class="card" style="margin-bottom:8px"><h2>🛠 Услуги</h2></div>
-    <div id="services-list"></div>
-  </div>
-
-  <!-- Тарифы -->
-  <div id="screen-tariffs" class="hide">
-    <button class="btn-secondary" onclick="showScreen('main')" style="margin-bottom:14px">← Назад</button>
-    <div class="card" style="margin-bottom:8px"><h2>💲 Тарифы и цены</h2></div>
-    <div id="tariffs-list"></div>
-    <button class="btn-primary" onclick="showScreen('order')" style="margin-top:6px">🛒 Оформить заказ</button>
-  </div>
-
-  <!-- Отзывы -->
-  <div id="screen-reviews" class="hide">
-    <button class="btn-secondary" onclick="showScreen('main')" style="margin-bottom:14px">← Назад</button>
-    <div class="card" style="margin-bottom:8px"><h2>⭐ Отзывы</h2></div>
-    <div id="reviews-list"></div>
-  </div>
-
   <!-- Заказ -->
-  <div id="screen-order" class="hide">
-    <button class="btn-secondary" onclick="showScreen('main')" style="margin-bottom:14px">← Назад</button>
+  <div id="screen-order" class="screen hide">
+    <button class="btn btn-back" onclick="showScreen('main')">Назад</button>
     <div class="card">
-      <h2>🛒 Оформить заказ</h2>
-      <p>Заполните форму — свяжемся с вами для уточнения деталей.</p>
+      <div class="mono">Оформить заказ</div>
+      <p>Заполните форму — текст заявки сформируется и откроется в Telegram.</p>
       <form id="order-form" style="margin-top:16px" novalidate>
         <div class="form-group">
           <label for="f-name">Имя *</label>
           <input type="text" id="f-name" placeholder="Как к вам обращаться" required />
         </div>
         <div class="form-group">
-          <label for="f-contact">Контакты для связи *</label>
+          <label for="f-contact">Контакт для связи *</label>
           <input type="text" id="f-contact" placeholder="@username или +7 ..." required />
         </div>
         <div class="form-group">
           <label for="f-tariff">Тариф *</label>
           <select id="f-tariff">
-            <option value="mini_bot">Бот-заявка (мини-бот) — 5 000 ₽</option>
-            <option value="booking_bot">Бот-запись + напоминания — 8 000 ₽</option>
-            <option value="catalog_bot">Бот-каталог / магазин — 10 000 ₽</option>
-            <option value="landing">Лендинг (Tilda/HTML) — 6 000 ₽</option>
-            <option value="bot_landing">Пакет «бот + лендинг» — 12 000 ₽</option>
-            <option value="support">Поддержка и обновления — 2 000 ₽/мес</option>
+            <option value="mini_bot">Мини-бот — 7 000 ₽</option>
+            <option value="booking_bot">Бот-запись + напоминания — 12 000 ₽</option>
+            <option value="catalog_bot">Бот-магазин — 16 000 ₽</option>
+            <option value="miniapp">Telegram Mini App — 25 000 ₽</option>
+            <option value="landing">Лендинг — 7 000 ₽</option>
+            <option value="bot_landing">Пакет «лендинг + бот» — 17 000 ₽</option>
+            <option value="complex">Пакет «лендинг + бот + мини-ап» — 35 000 ₽</option>
+            <option value="revision">Доработка бота — от 5 000 ₽</option>
+            <option value="support">Поддержка — 3 000 ₽/мес</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="f-task">Опишите задачу (ТЗ) *</label>
-          <textarea id="f-task" placeholder="Что должен делать бот?" required></textarea>
+          <label for="f-task">Задача (ТЗ) *</label>
+          <textarea id="f-task" placeholder="Что должен делать бот, какие функции обязательны" required></textarea>
         </div>
-        <button type="submit" class="btn-primary">📨 Отправить заказ</button>
+        <button type="submit" class="btn btn-primary">Отправить заказ <span aria-hidden="true">↗</span></button>
       </form>
-      <div class="success-box" id="success-box">✅ Спасибо! Заказ отправлен. Мы свяжемся с вами.</div>
+      <p class="form-fine">Текст заявки копируется — вы вставляете его в чат с ботом.</p>
+      <div class="success-box" id="success-box">Заявка сформирована. Вставьте её в чат с ботом.</div>
     </div>
   </div>
 
-  <p class="footer-note">⚡ Metsuki Development · <a href="https://t.me/metsuki_sutemi0979" style="color:#9db8ff;text-decoration:none">@metsuki_sutemi0979</a></p>
+  <p class="footer-note">Metsuki Development · <a href="https://t.me/metsuki_sutemi0979">@metsuki_sutemi0979</a></p>
 </div>
 
 <script>
-// ====== Данные ======
-const TARIFFS = [
-  { id: "mini_bot", title: "Бот-заявка (мини-бот)", price: 5000, period: "1–3 дня", includes: ["Меню и кнопки", "Форма заявки", "Уведомления о заявках"] },
-  { id: "booking_bot", title: "Бот-запись + напоминания", price: 8000, period: "3–7 дней", includes: ["Запись по слотам", "Категории и специалисты", "Напоминания клиентам"] },
-  { id: "catalog_bot", title: "Бот-каталог / магазин", price: 10000, period: "3–7 дней", includes: ["Каталог", "Корзина и оформление", "Уведомления менеджеру"] },
-  { id: "landing", title: "Лендинг (Tilda/HTML)", price: 6000, period: "3–7 дней", includes: ["Продающая структура", "Форма заявки", "Адаптив"] },
-  { id: "bot_landing", title: "Пакет «бот + лендинг»", price: 12000, period: "7–10 дней", includes: ["Лендинг", "Бот для заявок", "Связка лендинг → бот"] },
-  { id: "support", title: "Поддержка и обновления", price: 2000, period: "ежемесячно", includes: ["Исправление ошибок", "Апдейты", "Мелкие доработки"] }
+var TARIFFS = [
+  { id: "mini_bot", title: "Мини-бот (заявка/меню/прайс)", price: 7000, period: "2–3 дня", includes: ["Меню, кнопки, прайс", "Форма заявки", "Заявки в Telegram владельцу"] },
+  { id: "booking_bot", title: "Бот-запись + напоминания", price: 12000, period: "4–6 дней", includes: ["Запись по слотам", "Категории и специалисты", "Напоминания клиентам"] },
+  { id: "catalog_bot", title: "Бот-магазин (каталог, корзина)", price: 16000, period: "5–7 дней", includes: ["Каталог товаров/услуг", "Корзина и оформление", "Статусы заказа"] },
+  { id: "miniapp", title: "Telegram Mini App", price: 25000, period: "7–14 дней", includes: ["Приложение внутри Telegram", "Каталог / личный кабинет", "Связка с ботом"] },
+  { id: "landing", title: "Лендинг (HTML/Tilda)", price: 7000, period: "3–5 дней", includes: ["Продающая структура", "Форма заявки", "Адаптив"] },
+  { id: "bot_landing", title: "Пакет «лендинг + бот»", price: 17000, period: "7–10 дней", includes: ["Лендинг", "Бот для заявок", "Связка лендинг → бот"] },
+  { id: "complex", title: "Пакет «лендинг + бот + мини-ап»", price: 35000, period: "10–14 дней", includes: ["Лендинг", "Бот для заявок", "Telegram Mini App"] },
+  { id: "revision", title: "Доработка или починка бота", price: 5000, period: "1–3 дня", includes: ["Диагностика и правки", "Новые кнопки", "Интеграции"] },
+  { id: "support", title: "Поддержка и обновления", price: 3000, period: "ежемесячно", includes: ["Исправление ошибок", "Обновления под API", "Мелкие доработки"] }
 ];
-const PORTFOLIO = [
-  { title: "Бот для сети кофеен", desc: "Каталог, корзина, онлайн-оплата прямо в Telegram.", stack: "Python / Stripe" },
-  { title: "Бот-помощник магазина", desc: "Ответы на вопросы, статус заказа по трек-номеру.", stack: "Python / Telegram API" },
-  { title: "Бот с мини-приложением для записи", desc: "Календарь записи, напоминания, уведомления.", stack: "Python / WebApp" }
+var PORTFOLIO = [
+  { mono: "01 / Образование", title: "Курс «Инженер по тестированию» — Нетология", desc: "Тест-дизайн, автотесты, баг-трекеры, SQL, API-тестирование." },
+  { mono: "02 / Опыт", title: "Стажировка в Альфа-Банке", desc: "Тестирование сервиса покупки туров через банковскую карту." },
+  { mono: "03 / Проект", title: "Этот бот и сайт", desc: "Приём заказов, тарифы, интеграция с почтой и Telegram." }
 ];
-const SERVICES = [
-  { title: "Бот-заявка (мини-бот)", desc: "Меню, кнопки, форма заявки. Срок: 1–3 дня." },
-  { title: "Бот-запись + напоминания", desc: "Запись по слотам, напоминания клиентам. Срок: 3–7 дней." },
-  { title: "Бот-каталог / магазин", desc: "Каталог товаров с приёмом заказов. Срок: 3–7 дней." },
-  { title: "Лендинг (Tilda/HTML)", desc: "Одностраничный сайт с формой заявки. Срок: 3–7 дней." },
-  { title: "Пакет «бот + лендинг»", desc: "Лендинг + бот для приёма заявок. Срок: 7–10 дней." },
-  { title: "Поддержка и обновления", desc: "Ежемесячная поддержка готовых решений." }
-];
-const REVIEWS = [
-  { text: "Сделали бота для магазина. Продажи выросли, клиенты довольны!", author: "Алексей", role: "владелец магазина" },
-  { text: "Всё чётко, в срок. Мини-приложение работает отлично.", author: "Мария", role: "маркетолог" },
-  { text: "Кастомный бот с интеграцией CRM. Сделали больше, чем просили.", author: "Игорь", role: "руководитель" }
+var HOW = [
+  { mono: "01", title: "Заявка и бриф", desc: "Вы описываете задачу — я уточняю детали и фиксирую цену и срок." },
+  { mono: "02", title: "Разработка", desc: "Собираю бота: логика, база, уведомления, админ-панель." },
+  { mono: "03", title: "Тестирование", desc: "Прогоняю сценарии: запись, оплата, ошибки, гонки, безопасность." },
+  { mono: "04", title: "Запуск 24/7", desc: "Деплой на сервер, автозапуск, передача и поддержка." }
 ];
 
-// ====== Рендер ======
-document.getElementById("portfolio-list").innerHTML = PORTFOLIO.map(p => `
-  <div class="card">
-    <h2 style="font-size:15px">${p.title}</h2>
-    <p>${p.desc}</p>
-    <p style="margin-top:6px;color:#9db8ff;font-size:12px">${p.stack}</p>
-  </div>
-`).join("");
+document.getElementById("tariffs-list").innerHTML = TARIFFS.map(function (t, i) {
+  var tag = i === 1 ? '<span class="tag">Популярный</span>' : "";
+  var inc = t.includes.map(function (x) { return "<li>" + x + "</li>"; }).join("");
+  return (
+    '<div class="list-item">' + tag + '<h3>' + t.title + '</h3>' +
+    '<div class="price">' + t.price.toLocaleString("ru-RU") + ' <small>₽</small></div>' +
+    '<div class="period">' + t.period + '</div><ul>' + inc + '</ul>' +
+    '<button class="btn btn-ghost" onclick="selectTariff(\'' + t.id + '\')">Выбрать</button>' +
+    '</div>'
+  );
+}).join("");
 
-document.getElementById("services-list").innerHTML = SERVICES.map(s => `
-  <div class="card">
-    <h2 style="font-size:15px">${s.title}</h2>
-    <p>${s.desc}</p>
-  </div>
-`).join("");
+document.getElementById("portfolio-list").innerHTML = PORTFOLIO.map(function (p) {
+  return '<div class="list-item"><div class="mono">' + p.mono + '</div><h3>' + p.title + '</h3><p>' + p.desc + '</p></div>';
+}).join("");
 
-document.getElementById("tariffs-list").innerHTML = TARIFFS.map((t, i) => `
-  <div class="tariff ${i === 1 ? "featured" : ""}">
-    ${i === 1 ? '<span class="tag">Популярный</span>' : ""}
-    <h3>${t.title}</h3>
-    <div class="price">${t.price.toLocaleString("ru-RU")} <small>₽</small></div>
-    <div style="color:var(--muted);font-size:13px">${t.period}</div>
-    <ul>${t.includes.map(x => `<li>${x}</li>`).join("")}</ul>
-    <button class="btn-primary" onclick="selectTariff('${t.id}')">Выбрать</button>
-  </div>
-`).join("");
+document.getElementById("how-list").innerHTML = HOW.map(function (h) {
+  return '<div class="list-item"><div class="mono">' + h.mono + '</div><h3>' + h.title + '</h3><p>' + h.desc + '</p></div>';
+}).join("");
 
-document.getElementById("reviews-list").innerHTML = REVIEWS.map(r => `
-  <div class="review">
-    <div class="stars">★★★★★</div>
-    <p>«${r.text}»</p>
-    <div class="author">${r.author} <span>· ${r.role}</span></div>
-  </div>
-`).join("");
-
-// ====== Навигация ======
 function showScreen(name) {
-  document.querySelectorAll("[id^='screen-']").forEach(el => el.classList.add("hide"));
+  document.querySelectorAll(".screen").forEach(function (el) { el.classList.add("hide"); });
   document.getElementById("screen-" + name).classList.remove("hide");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: 0, behavior: "auto" });
 }
 
-document.querySelectorAll(".menu-item[data-nav]").forEach(item => {
-  item.addEventListener("click", () => showScreen(item.dataset.nav));
+document.querySelectorAll(".menu-item[data-nav]").forEach(function (item) {
+  item.addEventListener("click", function () { showScreen(item.dataset.nav); });
 });
 
 function selectTariff(id) {
-  showScreen("order");
-  document.getElementById("f-tariff").value = id;
+  var url = "https://t.me/MetsukiDevelopmentBot?startapp=" + id;
+  if (window.Telegram && window.Telegram.WebApp) { window.Telegram.WebApp.openTelegramLink(url); }
+  else { window.open(url, "_blank"); }
 }
 
-// ====== Форма ======
-// Заказы из мини-апа уходят на API_URL; если он пуст — через почтовый клиент (mailto).
-const API_URL = "";
+function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
 
-document.getElementById("order-form").addEventListener("submit", async (e) => {
+function calculate() {
+  var records = clamp(parseInt(document.getElementById("c-records").value || "0", 10) || 0, 1, 200);
+  var check = clamp(parseInt(document.getElementById("c-check").value || "0", 10) || 0, 100, 100000);
+  var missed = clamp(parseInt(document.getElementById("c-missed").value || "0", 10) || 0, 0, 60) / 100;
+
+  var perDay = records * check * missed;
+  var perMonth = perDay * 30;
+  var recovered = perMonth * 0.3;
+  var fmt = function (n) { return Math.round(n).toLocaleString("ru-RU") + " ₽"; };
+
+  document.getElementById("calc-result").innerHTML =
+    '<div class="list-item" style="margin:0">' +
+    '<div class="mono">Результат</div>' +
+    '<h3 style="margin-bottom:6px">Вы теряете:</h3>' +
+    '<div class="price">' + fmt(perMonth) + '</div>' +
+    '<div class="period">в месяц на пропущенных заявках</div>' +
+    '<p style="margin-top:10px;color:var(--text-2)">Бот-запись окупается за <b style="color:var(--sand)">' +
+    Math.max(1, Math.ceil(recovered > 0 ? 12000 / (recovered || 1) / 30 : 30)) + ' мес.</b> и возвращает часть упущенной выручки.</p>' +
+    '</div>';
+}
+
+document.getElementById("order-form").addEventListener("submit", function (e) {
   e.preventDefault();
-  const name = document.getElementById("f-name").value;
-  const contact = document.getElementById("f-contact").value;
-  const tariff = TARIFFS.find(t => t.id === document.getElementById("f-tariff").value);
-  const task = document.getElementById("f-task").value;
-
-  const payload = { name, contact, tariff: tariff ? tariff.id : "", task };
-
-  async function sendMail() {
-    const subject = encodeURIComponent("Заказ из мини-приложения: " + (tariff ? tariff.title : ""));
-    const body = encodeURIComponent(
-      "Имя: " + name + "\n" +
-      "Контакты: " + contact + "\n" +
-      "Тариф: " + (tariff ? tariff.title + " (" + tariff.price.toLocaleString("ru-RU") + " ₽)" : "") + "\n\n" +
-      "Задача:\n" + task
-    );
-    window.location.href = "mailto:artemiymazur@yandex.ru?subject=" + subject + "&body=" + body;
-  }
-
-  try {
-    if (!API_URL) { await sendMail(); }
-    else {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-      if (!res.ok) throw new Error("bad response");
-    }
-  } catch (err) {
-    await sendMail();
-  }
-  document.getElementById("success-box").style.display = "block";
+  var name = document.getElementById("f-name").value.trim();
+  var contact = document.getElementById("f-contact").value.trim();
+  var task = document.getElementById("f-task").value.trim();
+  if (!name || !contact || !task) { alert("Заполните обязательные поля"); return; }
+  var tariff = document.getElementById("f-tariff").value || "mini_bot";
+  var url = "https://t.me/MetsukiDevelopmentBot?startapp=" + tariff;
+  if (window.Telegram && window.Telegram.WebApp) { window.Telegram.WebApp.openTelegramLink(url); }
+  else { window.open(url, "_blank"); }
+  var box = document.getElementById("success-box");
+  box.classList.add("show");
   e.target.reset();
+  setTimeout(function () { box.classList.remove("show"); }, 6000);
 });
 
-// ====== Telegram WebApp ======
 if (window.Telegram && window.Telegram.WebApp) {
-  const tg = window.Telegram.WebApp;
+  var tg = window.Telegram.WebApp;
   tg.ready();
   tg.expand();
-  // Подстройка под тему Telegram (легкая: только фон и текст,
-  // акцентный цвет оставляем бирюзовым, чтобы сохранить фирменный стиль)
-  const theme = tg.themeParams;
+  var theme = tg.themeParams;
   if (theme) {
-    document.documentElement.style.setProperty("--bg", theme.bg_color || "#0a0c10");
-    if (theme.secondary_bg_color) document.documentElement.style.setProperty("--card-solid", theme.secondary_bg_color);
-    document.documentElement.style.setProperty("--text", theme.text_color || "#f2f5f7");
-    document.documentElement.style.setProperty("--muted", theme.hint_color || "#8b93a1");
+    var root = document.documentElement.style;
+    if (theme.bg_color) root.setProperty("--ink", theme.bg_color);
+    if (theme.secondary_bg_color) root.setProperty("--surface", theme.secondary_bg_color);
+    if (theme.text_color) root.setProperty("--text", theme.text_color);
+    if (theme.hint_color) root.setProperty("--muted", theme.hint_color);
   }
 }
 </script>
