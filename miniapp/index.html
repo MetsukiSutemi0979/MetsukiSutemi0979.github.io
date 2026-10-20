@@ -386,7 +386,7 @@ document.querySelectorAll(".menu-item[data-nav]").forEach(function (item) {
 });
 
 function selectTariff(id) {
-  var url = "https://t.me/MetsukiDevelopmentBot?startapp=" + id;
+  var url = "https://t.me/MetsukiDevelopmentBot?start=" + id;
   if (window.Telegram && window.Telegram.WebApp) { window.Telegram.WebApp.openTelegramLink(url); }
   else { window.open(url, "_blank"); }
 }
@@ -421,7 +421,7 @@ document.getElementById("order-form").addEventListener("submit", function (e) {
   var task = document.getElementById("f-task").value.trim();
   if (!name || !contact || !task) { alert("Заполните обязательные поля"); return; }
   var tariff = document.getElementById("f-tariff").value || "mini_bot";
-  var url = "https://t.me/MetsukiDevelopmentBot?startapp=" + tariff;
+  var url = "https://t.me/MetsukiDevelopmentBot?start=" + tariff;
   if (window.Telegram && window.Telegram.WebApp) { window.Telegram.WebApp.openTelegramLink(url); }
   else { window.open(url, "_blank"); }
   var box = document.getElementById("success-box");

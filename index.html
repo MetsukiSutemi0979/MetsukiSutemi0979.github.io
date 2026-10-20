@@ -2282,7 +2282,7 @@ orderForm.addEventListener("submit", function (event) {
   document.getElementById("form-success").style.display = "block";
   document.getElementById("form-error").style.display = "none";
   showToast("Заявка скопирована — вставьте её в чат с ботом");
-  window.open("https://t.me/MetsukiDevelopmentBot?startapp=" + encodeURIComponent(tariffSelect.value), "_blank", "noopener");
+  window.open("https://t.me/MetsukiDevelopmentBot?start=" + encodeURIComponent(tariffSelect.value), "_blank", "noopener");
 });
 
 document.getElementById("calc-cta").addEventListener("click", function () {
