@@ -214,6 +214,7 @@
     <div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">
       <button class="btn btn-primary" onclick="showScreen('order')">Оформить заказ <span aria-hidden="true">↗</span></button>
       <a class="btn btn-ghost" href="https://t.me/MetsukiDevelopmentBot">Открыть бота</a>
+      <a class="btn btn-ghost" href="https://t.me/metsuki_sutemi0979" style="border-color:var(--sand-line);color:var(--sand)">Бесплатный аудит бота <span aria-hidden="true">↗</span></a>
     </div>
   </div>
 
@@ -344,9 +345,9 @@ var TARIFFS = [
   { id: "support", title: "Поддержка и обновления", price: 3000, period: "ежемесячно", includes: ["Исправление ошибок", "Обновления под API", "Мелкие доработки"] }
 ];
 var PORTFOLIO = [
-  { mono: "01 / Образование", title: "Курс «Инженер по тестированию» — Нетология", desc: "Тест-дизайн, автотесты, баг-трекеры, SQL, API-тестирование." },
-  { mono: "02 / Опыт", title: "Стажировка в Альфа-Банке", desc: "Тестирование сервиса покупки туров через банковскую карту." },
-  { mono: "03 / Проект", title: "Этот бот и сайт", desc: "Приём заказов, тарифы, интеграция с почтой и Telegram." }
+  { mono: "01 / Живой бот", title: "Барбершоп «Квадрат»", desc: "Запись: услуга → мастер → время → имя/телефон. Напоминание за 2 часа.", bot: "https://t.me/BarbershopKvadratBot" },
+  { mono: "02 / Живой бот", title: "Ветклиника «Ветлазарет»", desc: "Запись по категориям и врачам, защита от двойной записи.", bot: "https://t.me/VetlazaretBot" },
+  { mono: "03 / Живой бот", title: "RAMORS PC", desc: "Каталог ПК и комплектующих, заявка на сборку с бюджетом.", bot: "https://t.me/Ramorspc_bot" }
 ];
 var HOW = [
   { mono: "01", title: "Заявка и бриф", desc: "Вы описываете задачу — я уточняю детали и фиксирую цену и срок." },
@@ -368,7 +369,10 @@ document.getElementById("tariffs-list").innerHTML = TARIFFS.map(function (t, i) 
 }).join("");
 
 document.getElementById("portfolio-list").innerHTML = PORTFOLIO.map(function (p) {
-  return '<div class="list-item"><div class="mono">' + p.mono + '</div><h3>' + p.title + '</h3><p>' + p.desc + '</p></div>';
+  var link = p.bot
+    ? '<button class="btn btn-ghost" style="margin-top:10px" onclick="openBotWithPayload(\'' + p.bot.split("t.me/")[1] + '\')">Открыть бота</button>'
+    : "";
+  return '<div class="list-item"><div class="mono">' + p.mono + '</div><h3>' + p.title + '</h3><p>' + p.desc + '</p>' + link + '</div>';
 }).join("");
 
 document.getElementById("how-list").innerHTML = HOW.map(function (h) {

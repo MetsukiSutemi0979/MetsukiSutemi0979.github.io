@@ -1402,11 +1402,14 @@
         <div class="hero-copy">
           <p class="hero-kicker mono">Telegram-боты и мини-приложения</p>
           <h1>Клиенты пишут боту.<br /><em>Заявки — вам.</em></h1>
-          <p class="lead">Запись, каталог и оплата внутри Telegram. Делаю под ключ: фиксированная цена, запуск от двух дней.</p>
+          <p class="lead">Запись, каталог и оплата внутри Telegram. Делаю под ключ: фиксированная цена, запуск от двух дней, предоплата 50% — остаток после запуска.</p>
           <div class="hero-cta">
             <a class="btn btn-primary" href="#contact">Оформить заказ <span class="dot" aria-hidden="true">↗</span></a>
             <a class="btn btn-ghost" href="#calc">Посчитать потери <span class="dot" aria-hidden="true">↓</span></a>
           </div>
+          <p class="hero-trust" style="margin-top:18px;font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">
+            Без предоплаты до утверждения ТЗ · Договор и чек для самозанятого
+          </p>
         </div>
 
         <div class="chat-shell">
@@ -1435,7 +1438,7 @@
         <div class="fact"><b>9</b><span>тарифов, от 3 000 ₽</span></div>
         <div class="fact"><b>2 дня</b><span>самый быстрый запуск</span></div>
         <div class="fact"><b>24/7</b><span>бот принимает заявки</span></div>
-        <div class="fact"><b>4 демо</b><span>под разные сферы бизнеса</span></div>
+        <div class="fact"><b>50/50</b><span>предоплата · остаток после запуска</span></div>
       </div>
     </div>
   </section>
@@ -1549,6 +1552,14 @@
         </div>
         <div class="demo-grid" id="demo-grid"></div>
       </div>
+
+      <div class="demo-panel reveal" style="margin-top:14px;border-color:var(--sand-line);background:linear-gradient(180deg,rgba(227,207,164,.07),rgba(227,207,164,.01))">
+        <div>
+          <h3>Бесплатный аудит бота</h3>
+          <p>Пришлите своего или чужого бота — покажу 5 мест, где он теряет клиентов, и что исправить. Без обязательств.</p>
+        </div>
+        <a class="btn btn-primary" href="https://t.me/metsuki_sutemi0979" target="_blank" rel="noopener" style="flex-shrink:0">Получить аудит <span class="dot" aria-hidden="true">↗</span></a>
+      </div>
     </div>
   </section>
 
@@ -1625,8 +1636,8 @@
   <section id="portfolio">
     <div class="wrap">
       <div class="sec-head reveal">
-        <h2>Опыт</h2>
-        <p>Не отзывы, а проверяемые вещи: учёба, стажировка и этот проект.</p>
+        <h2>Живые проекты</h2>
+        <p>Боты, которые уже принимают заявки. Нажмите «Открыть бота» — попробуйте сами.</p>
       </div>
       <div class="work" id="portfolio-grid"></div>
     </div>
@@ -1635,8 +1646,8 @@
   <section id="reviews">
     <div class="wrap">
       <div class="sec-head reveal">
-        <h2>С чем я работаю</h2>
-        <p>Стек, образование и принципы — без звёздочек и выдуманных клиентов.</p>
+        <h2>Что бот даёт бизнесу</h2>
+        <p>Конкретные выгоды, которые получает клиент после запуска: заявки 24/7, меньше неявок, порядок в расписании.</p>
       </div>
       <div class="trust" id="reviews-grid"></div>
     </div>
@@ -1702,7 +1713,8 @@
               <span class="field-error" id="err-task"></span>
             </div>
             <button type="submit" class="btn btn-primary form-submit">Отправить заказ <span class="dot" aria-hidden="true">↗</span></button>
-            <p class="form-fine">Ничего не отправляется автоматически: текст заявки копируется, вы вставляете его в чат с ботом.</p>
+            <p class="form-fine">Отвечаю в течение рабочего дня · 2 свободных слота на запуск в этом месяце</p>
+            <p class="form-fine">Текст заявки скопируется — вставьте его в открывшийся чат с ботом.</p>
             <div class="form-success" id="form-success">Заявка сформирована. В открывшемся Telegram вставьте её в чат с ботом — отвечу в рабочее время.</div>
             <div class="form-error" id="form-error">Не удалось скопировать текст. Скопируйте вручную или напишите напрямую в Telegram.</div>
           </form>
@@ -1962,16 +1974,16 @@ const TARIFFS = [
 ];
 
 const PORTFOLIO = [
-  { title: "Курс «Инженер по тестированию» — Нетология", description: "Тест-дизайн, автотесты, работа с баг-трекерами, основы SQL и API-тестирования.", stack: ["Тестирование", "SQL", "API"] },
-  { title: "Стажировка в Альфа-Банке", description: "Тестирование сервиса покупки туров через банковскую карту: сценарии, баги, работа с командой разработки.", stack: ["QA", "Тест-кейсы", "Bug-трекинг"] },
-  { title: "Этот бот, сайт и мини-приложение", description: "Приём заказов, тарифы, уведомления на почту. Сайт и мини-ап разворачиваются на статическом хостинге.", stack: ["Python", "aiogram", "HTML/CSS"] }
+  { title: "Барбершоп «Квадрат» — бот записи", description: "Запись по слотам: услуга → мастер → время → имя/телефон → подтверждение. Админ получает уведомление о каждой записи и отмене, клиент — напоминание за 2 часа до визита. Нажмите — это живой бот.", stack: ["Бот-запись", "Напоминания", "aiogram"], bot: "https://t.me/BarbershopKvadratBot" },
+  { title: "Ветклиника «Ветлазарет» — бот записи", description: "Запись к ветеринару по категориям и врачам, свободные слоты, защита от двойной записи, напоминания владельцу и клиенту. Нажмите — это живой бот.", stack: ["Бот-запись", "Слоты", "aiogram"], bot: "https://t.me/VetlazaretBot" },
+  { title: "RAMORS PC — бот-магазин", description: "Каталог компьютеров и комплектующих, сборка под заказ, оформление заявки с бюджетом, уведомления основателю в Telegram. Нажмите — это живой бот.", stack: ["Бот-магазин", "Каталог", "Заявки"], bot: "https://t.me/Ramorspc_bot" }
 ];
 
 const REVIEWS = [
-  { index: "01", title: "Образование", text: "Курс «Инженер по тестированию» в Нетологии. Диплом и номер сертификата прикладываю по запросу." },
-  { index: "02", title: "Стажировка", text: "Альфа-Банк, тестирование сервиса покупки туров через банковскую карту." },
-  { index: "03", title: "Стек", text: "Python, aiogram, SQL (MySQL, PostgreSQL), Git, Docker, Java, ручное и авто-тестирование." },
-  { index: "04", title: "Подход", text: "Сначала задача и сценарий, потом код и тесты, потом запуск. Сроки обсуждаем до старта." }
+  { index: "01", title: "Сервис в 24/7", text: "Бот принимает запись вне рабочего времени — клиенты больше не ждут ответа «до завтра», а мастер видит заявку сразу в Telegram." },
+  { index: "02", title: "Запись без «занято»", text: "Слоты привязаны к мастеру, повторная запись одного клиента исключена, при отмене слот освобождается автоматически." },
+  { index: "03", title: "Меньше неявок", text: "Клиент получает напоминание за 2 часа до визита — по неявкам это даёт заметную разницу уже в первый месяц." },
+  { index: "04", title: "Понятный запуск", text: "Фиксированная цена, этапы и сроки до старта. Предоплата 50%, остаток — после запуска и тестов." }
 ];
 
 // ====== Рендер ======
@@ -2009,11 +2021,15 @@ document.getElementById("tariffs-grid").innerHTML =
   "</div>";
 
 document.getElementById("portfolio-grid").innerHTML = PORTFOLIO.map(function (p, i) {
+  const botLink = p.bot
+    ? '<a class="demo-link" href="' + p.bot + '" target="_blank" rel="noopener" style="margin-top:12px">Открыть бота</a>'
+    : "";
   return '<article class="work-row">' +
     '<span class="work-idx">' + String(i + 1).padStart(2, "0") + "</span>" +
     "<h3>" + p.title + "</h3>" +
     "<p>" + p.description + "</p>" +
     '<div class="stack">' + p.stack.map(function (s) { return "<span>" + s + "</span>"; }).join("") + "</div>" +
+    botLink +
   "</article>";
 }).join("");
 
